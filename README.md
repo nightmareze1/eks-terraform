@@ -8,9 +8,13 @@ Terraform module to install Kubernetes using EKS multi-az in AWS with autoscalin
 
 # Properties:
 EKS Cluster: Control Plane in multi AZ.
-Autoscaling Groups for Workers
-Iam Roles and Policies
+
+Autoscaling Groups for Workers.
+
+Iam Roles and Policies.
+
 Aws Integration to create a ELB,NLB,ALB in public subnets.
+
 VPC, Multiple subnets, public subnets, private subnets, internet gateway and nat gateways.
 
 # Architecture
