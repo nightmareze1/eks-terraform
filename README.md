@@ -157,6 +157,7 @@ nginx2       ClusterIP      172.20.30.143   <none>                              
 ```
 
 Open the url using the FQDN detailed in EXTERNAL-IP. 
+
 ![alt text](https://raw.githubusercontent.com/nightmareze1/eks-terraform/master/img/app1.png)
 
 12- Launch Kubernetes-dashboard and get token.
