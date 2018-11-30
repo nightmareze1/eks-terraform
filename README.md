@@ -73,3 +73,16 @@ ip-10-100-50-235.ec2.internal   Ready     <none>    1s        v1.10.3   traefik
 7- Test autoscaling workers groups changing desired and max.
 
 ![alt text](https://raw.githubusercontent.com/nightmareze1/eks-terraform/master/img/asg-desired.png)
+
+wait 1 minute and check nodes to look the correctly registration.
+
+```
+➜  eks-up-and-running k get nodes --label-columns group
+NAME                            STATUS    ROLES     AGE       VERSION   GROUP
+ip-10-100-18-161.ec2.internal   Ready     <none>    14m       v1.10.3   node
+ip-10-100-18-97.ec2.internal    Ready     <none>    14m       v1.10.3   node
+ip-10-100-19-49.ec2.internal    Ready     <none>    9m        v1.10.3   node
+ip-10-100-50-11.ec2.internal    Ready     <none>    14m       v1.10.3   traefik
+ip-10-100-50-235.ec2.internal   Ready     <none>    14m       v1.10.3   traefik
+ip-10-100-51-22.ec2.internal    Ready     <none>    9m        v1.10.3   traefik
+```
