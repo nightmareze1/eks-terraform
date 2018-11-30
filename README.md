@@ -19,3 +19,5 @@ Terraform module to install Kubernetes using EKS multi-az in AWS with autoscalin
 
 # Architecture
 
+![alt text](https://raw.githubusercontent.com/nightmareze1/eks-terraform/master/img/aws-eks.jpeg.png)
+
