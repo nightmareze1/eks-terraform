@@ -203,3 +203,4 @@ https://www.terraform.io/docs/providers/aws/guides/eks-getting-started.html
 
 # AWS - EKS Workshop
 https://eksworkshop.com/
+https://aws.amazon.com/es/blogs/opensource/horizontal-pod-autoscaling-eks/
