@@ -184,7 +184,7 @@ http://127.0.0.1:8080/api/v1/namespaces/kube-system/services/https:kubernetes-da
 
 Look the dashboard.
 
-![alt text](https://raw.githubusercontent.com/nightmareze1/eks-terraform/master/img/dask-kube.png)
+![alt text](https://raw.githubusercontent.com/nightmareze1/eks-terraform/master/img/dash-kube.png)
 
 13- You can configure hpa and testing the applications with load average.
 
