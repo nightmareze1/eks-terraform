@@ -86,3 +86,70 @@ ip-10-100-50-11.ec2.internal    Ready     <none>    14m       v1.10.3   traefik
 ip-10-100-50-235.ec2.internal   Ready     <none>    14m       v1.10.3   traefik
 ip-10-100-51-22.ec2.internal    Ready     <none>    9m        v1.10.3   traefik
 ```
+
+![alt text](https://raw.githubusercontent.com/nightmareze1/eks-terraform/master/img/asg-nodes.png)
+
+8- Check dns-service is success. 
+```
+➜  eks-up-and-running k get po --all-namespaces
+NAMESPACE     NAME                        READY     STATUS              RESTARTS   AGE
+kube-system   aws-node-2lg6j              1/1       Running             0          10s
+kube-system   aws-node-d98q2              1/1       Running             0          6s
+kube-system   aws-node-n9lhz              1/1       Running             0          7s
+kube-system   aws-node-ngwfb              1/1       Running             0          9s
+kube-system   kube-dns-64b69465b4-js5km   0/3       ContainerCreating   0          6m
+kube-system   kube-proxy-kqs7f            1/1       Running             0          10s
+kube-system   kube-proxy-mmn2l            1/1       Running             0          9s
+kube-system   kube-proxy-rjjnq            1/1       Running             0          6s
+kube-system   kube-proxy-vssqc            1/1       Running             0          7s
+```
+9- Install helm and tiller.
+```
+cd eks-up-and-running
+kubectl create serviceaccount --namespace kube-system tiller
+kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admin --serviceaccount=kube-system:tiller
+helm init --service-account tiller --upgrade
+```
+
+10- Install HPA-metrics server.
+```
+https://github.com/kubernetes-incubator/metrics-server.git
+
+➜  eks-metrics k create -f metrics-server/deploy/1.8+
+clusterrole.rbac.authorization.k8s.io "system:aggregated-metrics-reader" created
+clusterrolebinding.rbac.authorization.k8s.io "metrics-server:system:auth-delegator" created
+rolebinding.rbac.authorization.k8s.io "metrics-server-auth-reader" created
+apiservice.apiregistration.k8s.io "v1beta1.metrics.k8s.io" created
+serviceaccount "metrics-server" created
+deployment.extensions "metrics-server" created
+service "metrics-server" created
+clusterrole.rbac.authorization.k8s.io "system:metrics-server" created
+clusterrolebinding.rbac.authorization.k8s.io "system:metrics-server" created
+
+```
+
+11- Launch kubernetes-dashboard and 2 applications , 1 public application with ELB and 1 private application.
+
+```
+cd eks-up-and-running
+
+➜  eks-up-and-running k create -f eks-app-autoscaling
+horizontalpodautoscaler.autoscaling "nginx" created
+deployment.extensions "nginx" created
+service "nginx" created
+deployment.extensions "nginx2" created
+service "nginx2" created
+
+➜  eks-app-autoscaling k get svc -owide
+NAME         TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE       SELECTOR
+kubernetes   ClusterIP      172.20.0.1      <none>        443/TCP        42m       <none>
+nginx        LoadBalancer   172.20.71.17    <pending>     80:30417/TCP   1m        app=nginx,env=stg
+nginx2       ClusterIP      172.20.30.143   <none>        80/TCP         6m        app=nginx,env=stg
+
+➜  eks-app-autoscaling k get svc -owide
+NAME         TYPE           CLUSTER-IP      EXTERNAL-IP                                                               PORT(S)        AGE       SELECTOR
+kubernetes   ClusterIP      172.20.0.1      <none>                                                                    443/TCP        42m       <none>
+nginx        LoadBalancer   172.20.71.17    afe917206f44011e8abc402ddbc5496a-1082087107.us-east-1.elb.amazonaws.com   80:30417/TCP   2m        app=nginx,env=stg
+nginx2       ClusterIP      172.20.30.143   <none>                                                                    80/TCP         6m        app=nginx,env=stg
+```
+
