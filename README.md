@@ -69,3 +69,7 @@ ip-10-100-18-97.ec2.internal    Ready     <none>    0s        v1.10.3   node
 ip-10-100-50-11.ec2.internal    Ready     <none>    3s        v1.10.3   traefik
 ip-10-100-50-235.ec2.internal   Ready     <none>    1s        v1.10.3   traefik
 ```
+
+7- Test autoscaling workers groups changing desired and max.
+
+![alt text](https://raw.githubusercontent.com/nightmareze1/eks-terraform/master/img/asg-desired.png)
