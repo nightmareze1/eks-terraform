@@ -190,5 +190,16 @@ Look the dashboard.
 
 ![alt text](https://raw.githubusercontent.com/nightmareze1/eks-terraform/master/img/load.png)
 
+THANKS for use this repo!!!
 
+# REGARDS AND INSPIRATION:
 
+https://github.com/anmolnagpal/terraform-eks
+https://github.com/terraform-aws-modules/terraform-aws-eks
+https://www.iheavy.com/2018/07/31/how-to-setup-an-amazon-eks-demo-with-terraform/
+https://github.com/christopherhein/terraform-eks
+https://github.com/howdio/terraform-aws-eks
+https://www.terraform.io/docs/providers/aws/guides/eks-getting-started.html
+
+# AWS - EKS Workshop
+https://eksworkshop.com/
