@@ -21,6 +21,9 @@ Terraform module to install Kubernetes using EKS multi-az in AWS with autoscalin
 
 ![alt text](https://raw.githubusercontent.com/nightmareze1/eks-terraform/master/img/eks-art.png)
 
+# VPC-EXAMPLE:
+![alt text](https://raw.githubusercontent.com/nightmareze1/eks-terraform/master/img/vpc-example.png)
+
 Installation:
 
 1- You need configure :
@@ -152,4 +155,39 @@ kubernetes   ClusterIP      172.20.0.1      <none>                              
 nginx        LoadBalancer   172.20.71.17    afe917206f44011e8abc402ddbc5496a-1082087107.us-east-1.elb.amazonaws.com   80:30417/TCP   2m        app=nginx,env=stg
 nginx2       ClusterIP      172.20.30.143   <none>                                                                    80/TCP         6m        app=nginx,env=stg
 ```
+
+Open the url using the FQDN detailed in EXTERNAL-IP. 
+![alt text](https://raw.githubusercontent.com/nightmareze1/eks-terraform/master/img/app1.png)
+
+12- Launch Kubernetes-dashboard and get token.
+```
+➜  eks-up-and-running k create -f eks-dashboard
+secret "kubernetes-dashboard-certs" created
+serviceaccount "kubernetes-dashboard" created
+role.rbac.authorization.k8s.io "kubernetes-dashboard-minimal" created
+rolebinding.rbac.authorization.k8s.io "kubernetes-dashboard-minimal" created
+deployment.apps "kubernetes-dashboard" created
+service "kubernetes-dashboard" created
+
+kubectl proxy --port=8080 --address='0.0.0.0' --disable-filter=true &
+
+➜  eks-dashboard  aws-iam-authenticator token -i eks-cluster
+{"kind":"ExecCredential","apiVersion":"client.authentication.k8s.io/v1alpha1","spec":{},"status":{"token":"k8s-aws-v1.aHR0cHM6Ly9zdHMuYW1hem9uYXdzLmNvbS8_QWN0aW9uPUdldENhbGxlcklkZW50aXR5JlZlcnNpb249MjAxMS0wNi0xNSZYLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFKR05UNlRRMk9WSE1CMldRJTJGMjAxODExMzAlMkZ1cy1lYXN0LTElMkZzdHMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDE4MTEzMFQwMTU0NTZaJlgtQW16LUV4cGlyZXM9NjAmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JTNCeC1rOHMtYXdzLWlkJlgtQW16LVNpZ25hdHVyZT1jNjBlNTljYzI2ZmY5MzIyMDJlZGYzMGRiODAzMzc5MzE4NjgwMjY3ZGQyMDNiYmE2NTBkM2I2NzBhOTM3OGQy"}}
+```
+
+Open dashboard url in your browser using kube-proxy in port 8080 and use the token auth.
+
+http://127.0.0.1:8080/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/#!/overview?namespace=default
+
+![alt text](https://raw.githubusercontent.com/nightmareze1/eks-terraform/master/img/dash-token.png)
+
+Look the dashboard.
+
+![alt text](https://raw.githubusercontent.com/nightmareze1/eks-terraform/master/img/dash-kube.png)
+
+13- You can configure hpa and testing the applications with load average.
+
+![alt text](https://raw.githubusercontent.com/nightmareze1/eks-terraform/master/img/load.png)
+
+
 
