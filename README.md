@@ -61,7 +61,7 @@ aws eks update-kubeconfig --name eks-cluster --profile virginia-kubernetes
 
 5- Apply eks-config-auth to permit workers registration in EKS-CLUSTER.
 ```
-kubectl craete -f eks-config-auth.yml
+kubectl create -f eks-config-auth.yml
 ```
 6- Check nodes registration
 ```
