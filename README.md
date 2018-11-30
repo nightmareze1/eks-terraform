@@ -195,12 +195,19 @@ THANKS for use this repo!!!
 # REGARDS AND INSPIRATION:
 
 https://github.com/anmolnagpal/terraform-eks
+
 https://github.com/terraform-aws-modules/terraform-aws-eks
+
 https://www.iheavy.com/2018/07/31/how-to-setup-an-amazon-eks-demo-with-terraform/
+
 https://github.com/christopherhein/terraform-eks
+
 https://github.com/howdio/terraform-aws-eks
+
 https://www.terraform.io/docs/providers/aws/guides/eks-getting-started.html
 
 # AWS - EKS Workshop
+
 https://eksworkshop.com/
+
 https://aws.amazon.com/es/blogs/opensource/horizontal-pod-autoscaling-eks/
