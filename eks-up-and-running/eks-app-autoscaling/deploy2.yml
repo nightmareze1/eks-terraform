@@ -1,0 +1,58 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: nginx2
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  minReadySeconds: 5
+  template:
+    metadata:
+      labels:
+        app: nginx2
+        env: stg
+    spec:
+      terminationGracePeriodSeconds: 60
+      containers:
+      - name: nginx2
+        image: vikingo/alpine:v0.0.59
+        imagePullPolicy: Always
+        env:
+        - name: VARIABLE1
+          value: "My name is Juan and I'm a variable"
+        - name: VARIABLE2
+          value: "My name is Lucho and I'm a variable"
+        ports:
+        - containerPort: 80
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 30
+          timeoutSeconds: 1
+        resources:
+          limits:
+            cpu: "64m"
+            memory: 128Mi
+      nodeSelector:
+        group: node
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx2
+  labels:
+    app: nginx2
+    env: stg
+  annotations: { }
+spec:
+  ports:
+  - port: 80
+  selector:
+    app: nginx
+    env: stg
