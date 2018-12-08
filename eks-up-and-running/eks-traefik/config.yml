@@ -13,8 +13,6 @@ data:
         [entryPoints.http]
         address = ":80"
         compress = true
-         [entryPoints.http.redirect]
-          entryPoint = "https"
         [entryPoints.https]
         address = ":443"
           [entryPoints.https.tls]
