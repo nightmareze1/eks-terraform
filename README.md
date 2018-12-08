@@ -17,6 +17,9 @@ Terraform module to install Kubernetes using EKS multi-az in AWS with autoscalin
 
 ###VPC, Multiple subnets, public subnets, private subnets, internet gateway and nat gateways.
 
+###NOTE: Check Amazon CNI ips support for instance type. 
+https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-eni.html#AvailableIpPerENI
+
 # Architecture
 
 ![alt text](https://raw.githubusercontent.com/nightmareze1/eks-terraform/master/img/eks-art.png)
