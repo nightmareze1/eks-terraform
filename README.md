@@ -117,17 +117,20 @@ helm init --service-account tiller --upgrade
 10- Install HPA-metrics server.
 
 ```
-mkdir eks-metrics
-cd eks-metrics
+➜  eks-metrics mkdir eks-metrics
+➜  eks-metrics cd eks-metrics
+```
 
-git clone https://github.com/kubernetes-incubator/metrics-server.git
-
+```
+➜  eks-metrics git clone https://github.com/kubernetes-incubator/metrics-server.git
+```
 You need change this file metrics-server-deployment.yaml and add this line to fix eks to works metrics-server:
-
+```
 command:
     - /metrics-server
     - --kubelet-preferred-address-types=InternalIP
-
+```
+```
 ➜  eks-metrics vi metrics-server/deploy/1.8+/metrics-server-deployment.yaml
  ---
  apiVersion: v1
@@ -168,7 +171,8 @@ command:
          volumeMounts:
          - name: tmp-dir
            mountPath: /tmp
-
+```
+```
 ➜  eks-metrics k create -f metrics-server/deploy/1.8+
 clusterrole.rbac.authorization.k8s.io "system:aggregated-metrics-reader" created
 clusterrolebinding.rbac.authorization.k8s.io "metrics-server:system:auth-delegator" created
@@ -179,7 +183,7 @@ deployment.extensions "metrics-server" created
 service "metrics-server" created
 clusterrole.rbac.authorization.k8s.io "system:metrics-server" created
 clusterrolebinding.rbac.authorization.k8s.io "system:metrics-server" created
-
+```
 ➜  eks-metrics k top nodes
 NAME                            CPU(cores)   CPU%      MEMORY(bytes)   MEMORY%
 ip-10-100-18-108.ec2.internal   19m          1%        320Mi           16%
@@ -193,7 +197,7 @@ ip-10-100-50-231.ec2.internal   15m          1%        338Mi           17%
 
 ```
 cd eks-up-and-running
-
+```
 ➜  eks-up-and-running k create -f eks-app-autoscaling
 horizontalpodautoscaler.autoscaling "nginx" created
 deployment.extensions "nginx" created
@@ -206,7 +210,7 @@ NAME         TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE    
 kubernetes   ClusterIP      172.20.0.1      <none>        443/TCP        42m       <none>
 nginx        LoadBalancer   172.20.71.17    <pending>     80:30417/TCP   1m        app=nginx,env=stg
 nginx2       ClusterIP      172.20.30.143   <none>        80/TCP         6m        app=nginx,env=stg
-
+```
 ➜  eks-app-autoscaling k get svc -owide
 NAME         TYPE           CLUSTER-IP      EXTERNAL-IP                                                               PORT(S)        AGE       SELECTOR
 kubernetes   ClusterIP      172.20.0.1      <none>                                                                    443/TCP        42m       <none>
