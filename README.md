@@ -26,6 +26,8 @@ c4.xlarge 4interfaces ips 15     15 containers x instance
 m4.large  2interfaces ips 10     10 containers x instance
 r4.large  3interfaces ips 10     10 containers x instance
 ```
+Testing AWS-CNI plugin with t2.medium support 17 ips, When need create a ip number 18 fails the cni for instance cni limits.
+![alt text](https://raw.githubusercontent.com/nightmareze1/eks-terraform/master/img/eks-cni.png)
 
 # Architecture
 
@@ -283,6 +285,8 @@ Look the dashboard.
 13- You can configure hpa and testing the applications with load average.
 
 ![alt text](https://raw.githubusercontent.com/nightmareze1/eks-terraform/master/img/load.png)
+
+![alt text](https://raw.githubusercontent.com/nightmareze1/eks-terraform/master/img/eks-stack.png)
 
 THANKS for use this repo!!!
 
