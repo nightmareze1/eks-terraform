@@ -20,6 +20,13 @@ Terraform module to install Kubernetes using EKS multi-az in AWS with autoscalin
 ###NOTE: Check Amazon CNI ips support for instance type. 
 https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-eni.html#AvailableIpPerENI
 
+Example AWS-CNI
+```
+c4.xlarge 4interfaces ips 15     15 containers x instance
+m4.large  2interfaces ips 10     10 containers x instance
+r4.large  3interfaces ips 10     10 containers x instance
+```
+
 # Architecture
 
 ![alt text](https://raw.githubusercontent.com/nightmareze1/eks-terraform/master/img/eks-art.png)
