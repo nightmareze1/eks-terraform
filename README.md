@@ -130,24 +130,6 @@ command:
     - /metrics-server
     - --kubelet-preferred-address-types=InternalIP
 ```
-git diff to look changes in metrics-server-deployment.yaml
-```
-➜  metrics-server git:(master) ✗ git diff
---- a/deploy/1.8+/metrics-server-deployment.yaml
-+++ b/deploy/1.8+/metrics-server-deployment.yaml
-@@ -31,6 +31,9 @@ spec:
-       - name: metrics-server
-         image: k8s.gcr.io/metrics-server-amd64:v0.3.1
-         imagePullPolicy: Always
-+        command:
-+            - /metrics-server
-+            - --kubelet-preferred-address-types=InternalIP
-         volumeMounts:
-         - name: tmp-dir
-           mountPath: /tmp
-(END)
-```
-
 ```
 ➜  eks-metrics vi metrics-server/deploy/1.8+/metrics-server-deployment.yaml
 ```
@@ -191,6 +173,23 @@ git diff to look changes in metrics-server-deployment.yaml
          volumeMounts:
          - name: tmp-dir
            mountPath: /tmp
+```
+git diff to look changes in metrics-server-deployment.yaml
+```
+➜  metrics-server git:(master) ✗ git diff
+--- a/deploy/1.8+/metrics-server-deployment.yaml
++++ b/deploy/1.8+/metrics-server-deployment.yaml
+@@ -31,6 +31,9 @@ spec:
+       - name: metrics-server
+         image: k8s.gcr.io/metrics-server-amd64:v0.3.1
+         imagePullPolicy: Always
++        command:
++            - /metrics-server
++            - --kubelet-preferred-address-types=InternalIP
+         volumeMounts:
+         - name: tmp-dir
+           mountPath: /tmp
+(END)
 ```
 ```
 ➜  eks-metrics k create -f metrics-server/deploy/1.8+
