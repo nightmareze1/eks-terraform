@@ -284,6 +284,30 @@ Look the dashboard.
 
 13- You can configure hpa and testing the applications with load average.
 
+cd eks-app-autoscaling
+```
+➜  eks-app-autoscaling git:(master) ✗ cat autoscaling.yml
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: nginx
+spec:
+  scaleTargetRef:
+    apiVersion: extensions/v1beta1
+    kind: Deployment
+    name: nginx
+  minReplicas: 30
+  maxReplicas: 35
+  targetCPUUtilizationPercentage: 30
+  
+➜  eks-app-autoscaling git:(master) ✗ k apply -f autoscaling.yml
+
+➜  eks-app-autoscaling git:(master) ✗ k get hpa
+NAME      REFERENCE          TARGETS   MINPODS   MAXPODS   REPLICAS   AGE
+nginx     Deployment/nginx   2%/30%    30        35        30         3h
+```
+
 ![alt text](https://raw.githubusercontent.com/nightmareze1/eks-terraform/master/img/load.png)
 
 ![alt text](https://raw.githubusercontent.com/nightmareze1/eks-terraform/master/img/eks-stack.png)
