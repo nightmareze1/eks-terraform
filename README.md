@@ -150,6 +150,8 @@ git diff to look changes in metrics-server-deployment.yaml
 
 ```
 ➜  eks-metrics vi metrics-server/deploy/1.8+/metrics-server-deployment.yaml
+```
+```
  ---
  apiVersion: v1
  kind: ServiceAccount
