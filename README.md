@@ -130,6 +130,7 @@ command:
     - /metrics-server
     - --kubelet-preferred-address-types=InternalIP
 ```
+git diff to look changes in metrics-server-deployment.yaml
 ```
 ➜  metrics-server git:(master) ✗ git diff
 --- a/deploy/1.8+/metrics-server-deployment.yaml
