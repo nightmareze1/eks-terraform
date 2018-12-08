@@ -288,6 +288,34 @@ Look the dashboard.
 
 ![alt text](https://raw.githubusercontent.com/nightmareze1/eks-terraform/master/img/eks-stack.png)
 
+14- I created the configuration to install traefik in EKS with simple auth to dashboard access.
+
+cd eks-traefik
+
+#CREATE USER WITH SIMPLE AUTH
+```
+htpasswd -c ./auth zz1
+cat auth
+kubectl create secret generic mysecret --from-file auth --namespace=kube-system
+```
+
+#CREATE ROLE TRAEFIK ACCESS-READ THE k8s METADATA
+```
+➜  eks-traefik kubectl create serviceaccount --namespace kube-system traefik-ingress-controller
+➜  eks-traefik kubectl create clusterrolebinding traefik-cluster-rule --clusterrole=cluster-admin --serviceaccount=kube-system:traefik-ingress-controller
+```
+```
+k apply -f .
+➜  eks-traefik git:(master) ✗ k create -f .
+configmap "traefik-conf" created
+serviceaccount "traefik-ingress-controller" created
+deployment.extensions "traefik-ingress-controller" created
+ingress.extensions "traefik-ingress-service-admin" created
+service "traefik-ingress-service-admin" created
+service "traefik-ingress-service" created
+```
+![alt text](https://raw.githubusercontent.com/nightmareze1/eks-terraform/master/img/eks-traefik.png)
+
 THANKS for use this repo!!!
 
 # REGARDS AND INSPIRATION:
