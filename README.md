@@ -198,6 +198,8 @@ ip-10-100-50-231.ec2.internal   15m          1%        338Mi           17%
 ```
 cd eks-up-and-running
 ```
+```
+
 ➜  eks-up-and-running k create -f eks-app-autoscaling
 horizontalpodautoscaler.autoscaling "nginx" created
 deployment.extensions "nginx" created
@@ -210,6 +212,7 @@ NAME         TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE    
 kubernetes   ClusterIP      172.20.0.1      <none>        443/TCP        42m       <none>
 nginx        LoadBalancer   172.20.71.17    <pending>     80:30417/TCP   1m        app=nginx,env=stg
 nginx2       ClusterIP      172.20.30.143   <none>        80/TCP         6m        app=nginx,env=stg
+```
 ```
 ➜  eks-app-autoscaling k get svc -owide
 NAME         TYPE           CLUSTER-IP      EXTERNAL-IP                                                               PORT(S)        AGE       SELECTOR
