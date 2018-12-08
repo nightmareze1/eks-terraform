@@ -124,7 +124,7 @@ helm init --service-account tiller --upgrade
 ```
 ➜  eks-metrics git clone https://github.com/kubernetes-incubator/metrics-server.git
 ```
-You need change this file metrics-server-deployment.yaml and add this line to fix eks to works metrics-server:
+You need change this file metrics-server-deployment.yaml and add this line to fix eks2 to works metrics-server:
 ```
 command:
     - /metrics-server
