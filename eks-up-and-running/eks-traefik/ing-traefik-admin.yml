@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    traefik.frontend.rule.type: PathPrefix
+    ingress.kubernetes.io/auth-type: "basic"
+    ingress.kubernetes.io/auth-secret: "mysecret"
+  generation: 1
+  name: traefik-ingress-service-admin
+  namespace: kube-system
+spec:
+  rules:
+  - host: traefik.apps.dev.itshellws-k8s.com
+    http:
+      paths:
+      - backend:
+          serviceName: traefik-ingress-service-admin
+          servicePort: 8080
+        path: /

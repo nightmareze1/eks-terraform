@@ -1,0 +1,30 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: traefik-conf
+  namespace: kube-system
+data:
+  traefik.toml: |
+      InsecureSkipVerify = true
+      logLevel = "INFO"
+
+      defaultEntryPoints = ["http", "https"]
+      [entryPoints]
+        [entryPoints.http]
+        address = ":80"
+        compress = true
+         [entryPoints.http.redirect]
+          entryPoint = "https"
+        [entryPoints.https]
+        address = ":443"
+          [entryPoints.https.tls]
+      [web]
+        address = ":8080"
+      [kubernetes]
+        labelselector = "traffic-type=external"
+      [ping]
+        entryPoint = "http"
+      [metrics]
+        [metrics.prometheus]
+        buckets=[0.1,0.3,1.2,5.0]
+        entryPoint = "traefik"

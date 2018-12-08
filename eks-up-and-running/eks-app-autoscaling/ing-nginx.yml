@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    traefik.frontend.rule.type: PathPrefix
+  generation: 1
+  name: nginx
+  namespace: default
+spec:
+  rules:
+  - host: nginx.apps.dev.itshellws-k8s.com
+    http:
+      paths:
+      - backend:
+          serviceName: nginx
+          servicePort: 80
+        path: /
