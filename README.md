@@ -183,7 +183,7 @@ deployment.extensions "metrics-server" created
 service "metrics-server" created
 clusterrole.rbac.authorization.k8s.io "system:metrics-server" created
 clusterrolebinding.rbac.authorization.k8s.io "system:metrics-server" created
-```
+
 ➜  eks-metrics k top nodes
 NAME                            CPU(cores)   CPU%      MEMORY(bytes)   MEMORY%
 ip-10-100-18-108.ec2.internal   19m          1%        320Mi           16%
