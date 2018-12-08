@@ -25,7 +25,7 @@ resource "aws_route" "main" {
 
 # DHCP
 resource "aws_vpc_dhcp_options" "main" {
-  domain_name = "${var.domain_name}"
+  domain_name = "${var.domain_name_dhcp}"
   domain_name_servers = ["AmazonProvidedDNS"]
   tags = "${merge(var.tags, map("Name", "${var.name}_dhcp"))}"
 }

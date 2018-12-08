@@ -3,8 +3,9 @@ variable "vpc-cidr" {
   description = "Network CIDR [A.B.C.D/X]"
 }
 
-variable "domain_name" {
-  description = "Domain Name"
+variable "domain_name_dhcp" {
+   description = "Domain Name"
+ 
 }
 
 variable "enable_dns_hostnames" {
@@ -20,7 +21,7 @@ module "vpc" {
   source = "./modules/aws_tf_module_vpc"
   name = "${local.name}"
   cidr = "${var.vpc-cidr}"
-  domain_name = "${var.domain_name}"
+  domain_name = "${var.domain_name_dhcp}"
   enable_dns_hostnames = "${var.enable_dns_hostnames}"
   enable_dns_support = "${var.enable_dns_support}"
   

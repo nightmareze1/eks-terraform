@@ -13,6 +13,7 @@ key = "example" # real key in your .ssh/example.pem , write without .pem
 ######  VPC  ######
 vpc-cidr = "10.100.0.0/16" 
 domain_name = "dev.itshellws-k8s.com"
+domain_name_dhcp = "ec2.internal"
 reverse_zone = "100.10.in-addr.arpa"
 enable_dns_hostnames = "true"
 enable_dns_support = "true"
@@ -79,6 +80,9 @@ traefik_k8s_prv_cidrs = [
 eks_masters_sg_rules = [
   { type = "ingress", protocol = "tcp", from_port = 443, to_port = 443, cidr_blocks = "0.0.0.0/0", description = "" },
   { type = "ingress", protocol = "udp", from_port = 1194, to_port = 1194, cidr_blocks = "0.0.0.0/0", description = "" },
+  { type = "ingress", protocol = "tcp", from_port = 10250, to_port = 10250, cidr_blocks = "0.0.0.0/0", description = ""  },
+  { type = "ingress", protocol = "udp", from_port = 53, to_port = 53, cidr_blocks = "10.100.0.0/16", description = ""  },
+  { type = "ingress", protocol = "tcp", from_port = 53, to_port = 53, cidr_blocks = "10.100.0.0/16", description = ""  },
   { type = "egress", protocol = "all", from_port = 0, to_port = 0, cidr_blocks = "0.0.0.0/0", description = "" },
 ]
 
@@ -86,5 +90,8 @@ eks_nodes_sg_rules = [
    { type = "ingress", protocol = "tcp", from_port = 1025, to_port = 65535, cidr_blocks = "0.0.0.0/0", description =   "" },
    { type = "ingress", protocol = "all", from_port = 0, to_port = 65535, cidr_blocks = "0.0.0.0/0", description    =   "" },
    { type = "ingress", protocol = "udp", from_port = 1194, to_port = 1194, cidr_blocks = "0.0.0.0/0", description   = "" },
+   { type = "ingress", protocol = "tcp", from_port = 10250, to_port = 10250, cidr_blocks = "0.0.0.0/0", description = ""   },
+   { type = "ingress", protocol = "udp", from_port = 53, to_port = 53, cidr_blocks = "10.100.0.0/16", description = ""   },
+   { type = "ingress", protocol = "tcp", from_port = 53, to_port = 53, cidr_blocks = "10.100.0.0/16", description = ""   },
    { type = "egress", protocol = "all", from_port = 0, to_port = 0, cidr_blocks = "0.0.0.0/0", description = "" },
 ]

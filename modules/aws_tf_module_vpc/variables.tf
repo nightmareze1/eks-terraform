@@ -11,8 +11,8 @@ variable "enable_dns_support" {
   description = "Enable DNS Support [ true | false ]"
 }
 
-# DHCP
-variable "domain_name" {
+ # DHCP
+variable "domain_name_dhcp" {
   description = "dhcp domain name"
 }
 
