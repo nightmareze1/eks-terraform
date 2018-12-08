@@ -338,6 +338,8 @@ ingress.extensions "traefik-ingress-service-admin" created
 service "traefik-ingress-service-admin" created
 service "traefik-ingress-service" created
 ```
+![alt text](https://raw.githubusercontent.com/nightmareze1/eks-terraform/master/img/eks-traefik-simple-auth.png)
+
 ![alt text](https://raw.githubusercontent.com/nightmareze1/eks-terraform/master/img/eks-traefik.png)
 
 THANKS for use this repo!!!
