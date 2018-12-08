@@ -131,6 +131,7 @@ command:
     - --kubelet-preferred-address-types=InternalIP
 ```
 ```
+➜  metrics-server git:(master) ✗ git diff
 --- a/deploy/1.8+/metrics-server-deployment.yaml
 +++ b/deploy/1.8+/metrics-server-deployment.yaml
 @@ -31,6 +31,9 @@ spec:
