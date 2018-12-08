@@ -115,8 +115,59 @@ helm init --service-account tiller --upgrade
 ```
 
 10- Install HPA-metrics server.
+
 ```
-https://github.com/kubernetes-incubator/metrics-server.git
+mkdir eks-metrics
+cd eks-metrics
+
+git clone https://github.com/kubernetes-incubator/metrics-server.git
+
+You need change this file metrics-server-deployment.yaml and add this line to fix eks to works metrics-server:
+
+command:
+    - /metrics-server
+    - --kubelet-preferred-address-types=InternalIP
+
+➜  eks-metrics vi metrics-server/deploy/1.8+/metrics-server-deployment.yaml
+ ---
+ apiVersion: v1
+ kind: ServiceAccount
+ metadata:
+   name: metrics-server
+   namespace: kube-system
+ ---
+ apiVersion: extensions/v1beta1
+ kind: Deployment
+ metadata:
+   name: metrics-server
+   namespace: kube-system
+   labels:
+     k8s-app: metrics-server
+ spec:
+   selector:
+     matchLabels:
+       k8s-app: metrics-server
+   template:
+     metadata:
+       name: metrics-server
+       labels:
+         k8s-app: metrics-server
+     spec:
+       serviceAccountName: metrics-server
+       volumes:
+       # mount in tmp so we can safely use from-scratch images and/or read-only containers
+       - name: tmp-dir
+         emptyDir: {}
+       containers:
+       - name: metrics-server
+         image: k8s.gcr.io/metrics-server-amd64:v0.3.1
+         imagePullPolicy: Always
+         command:
+             - /metrics-server
+             - --kubelet-preferred-address-types=InternalIP
+         volumeMounts:
+         - name: tmp-dir
+           mountPath: /tmp
 
 ➜  eks-metrics k create -f metrics-server/deploy/1.8+
 clusterrole.rbac.authorization.k8s.io "system:aggregated-metrics-reader" created
@@ -128,6 +179,13 @@ deployment.extensions "metrics-server" created
 service "metrics-server" created
 clusterrole.rbac.authorization.k8s.io "system:metrics-server" created
 clusterrolebinding.rbac.authorization.k8s.io "system:metrics-server" created
+
+➜  eks-metrics k top nodes
+NAME                            CPU(cores)   CPU%      MEMORY(bytes)   MEMORY%
+ip-10-100-18-108.ec2.internal   19m          1%        320Mi           16%
+ip-10-100-19-76.ec2.internal    16m          1%        359Mi           18%
+ip-10-100-50-18.ec2.internal    19m          1%        368Mi           19%
+ip-10-100-50-231.ec2.internal   15m          1%        338Mi           17%
 
 ```
 
